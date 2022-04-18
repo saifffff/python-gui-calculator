@@ -1,9 +1,10 @@
 # imported all of the tkinter
 from cProfile import label
 import re
+from struct import pack
 from tkinter import *
 # constructer
-gui_root = Tk();
+gui_root = Tk()
 
 # geometry is used to define width and height in same order widthxheight
 gui_root.geometry("400x400")
@@ -31,23 +32,66 @@ gui_root.title("Python CALC by Saif Khan")
 # myPicLabel = Label(image=myPic);
 # myPicLabel.pack()
 
-sideBar = Frame(gui_root,bg="grey",borderwidth=5,relief=SUNKEN)
-sideBar.pack(side=LEFT,fill="y")
+# sideBar = Frame(gui_root,bg="grey",borderwidth=5,relief=SUNKEN)
+# sideBar.pack(side=LEFT,fill="y")
 
-sbtext = Label(sideBar, text="sidebar text")
-sbtext.pack()
+# sbtext = Label(sideBar, text="sidebar text")
+# sbtext.pack()
 
-headBar = Frame(gui_root,bg="grey",borderwidth=5,relief=SUNKEN)
-headBar.pack(side=TOP,fill="x")
+# headBar = Frame(gui_root,bg="grey",borderwidth=5,relief=SUNKEN)
+# headBar.pack(side=TOP,fill="x")
 
-hbtext = Label(headBar, text="Welcome to My Notepad")
-hbtext.pack()
+# hbtext = Label(headBar, text="Welcome to My Notepad",font="Helvetica 16 bold", fg ="red")
+# hbtext.pack()
+
+# >> buttons 
+
+# >> button func
+# def onclick():
+#     print("thanks for the touch..")
+
+# def onclickNot():
+#     print("why the fuck would you do that..")
+
+# frame = Frame(gui_root, borderwidth=6,bg="grey",relief=SUNKEN)
+# frame.pack(side=LEFT,anchor="center")
+
+# btn1 = Button(frame, fg="red",text="clickme",command=onclick)
+# btn1.pack(side=LEFT,padx=10)
+
+# btn2 = Button(frame, fg="red",text="Dont clickme",command=onclickNot)
+# btn2.pack(side=LEFT,padx=10)
+
+# btn3 = Button(frame, fg="red",text="ok clickme",command=onclick)
+# btn3.pack(side=LEFT,padx=10)
+
+# >> learning grid 
+user = Label(gui_root, text="username")
+password = Label(gui_root, text="password")
+user.grid(row=1)
+password.grid(row=2)
+
+uval = StringVar()
+pval = StringVar()
+
+user_entry = Entry(gui_root, textvariable=uval)
+pass_entry = Entry(gui_root, textvariable=pval)
+
+user_entry.grid(row=1,column=2)
+pass_entry.grid(row=2,column=2)
+
+# shortcut to create a button
+
+def getvals():
+    print(f"Username = {uval.get()}")
+    print(f"Password = {pval.get()}")
+
+Button(text="Submit",command=getvals).grid()
 
 
 
-#   --->  gui design
+
 # main event-Loop
 gui_root.mainloop()
-
 
 
