@@ -1,52 +1,59 @@
 from tkinter import *
 import math
 
-
+# text variables
 ansValGlobal = ""
-ansLabelGlobal = ""
+finalValGlobal = ""
 
-root = Tk()
 
-root.title('Calculator by Saif Khan')
+# init gui with tk class
+gui = Tk()
 
+# for title
+gui.title('Calculator by Saif Khan')
+
+# for icons
 p1 = PhotoImage(file='shiats.png')
-root.iconphoto(False,p1)
+gui.iconphoto(False,p1)
 
+# answer variable
 Ans_val = StringVar()
 
-Entry(root, font=('futura', 25, 'bold'),
+# entry widget 1
+Entry(gui, font=('futura', 25, 'bold'),
 textvariable = Ans_val,
 justify = LEFT).grid(columnspan=4, ipadx=120)
 
 answerFinalLabel = StringVar()
 
-Entry(root, font=('futura', 25, 'bold'),
+# Entry widget 2
+Entry(gui, font=('futura', 25, 'bold'),
 textvariable = answerFinalLabel,
 justify = LEFT).grid(columnspan = 4 , ipadx=120)
 
 
 def changeAns_val(entry):
     global ansValGlobal
-    global ansLabelGlobal 
+    global finalValGlobal 
     ansValGlobal = ansValGlobal + str(entry)
-    ansLabelGlobal = ansValGlobal
+    finalValGlobal = ansValGlobal
     Ans_val.set(ansValGlobal)
 
 
 def clearAns_val():
     global ansValGlobal
-    global ansLabelGlobal
-    ansLabelGlobal = ansValGlobal
+    global finalValGlobal
+    finalValGlobal = ansValGlobal
     ansValGlobal = ""
     Ans_val.set(ansValGlobal)
 
 
 
-def evaluateSquareRoot():
+def evaluateSquaregui():
     global ansValGlobal
-    global ansLabelGlobal
+    global finalValGlobal
     try:
-        sqrtAnswer = math.sqrt(eval(str(ansLabelGlobal)))
+        sqrtAnswer = math.sqrt(eval(str(finalValGlobal)))
         clearAns_val()
         answerFinalLabel.set(sqrtAnswer)
     except(ValueError,SyntaxError,TypeError, ZeroDivisionError):
@@ -74,16 +81,16 @@ def evaluateAnswer():
 
 def allClear():
     global ansValGlobal
-    global ansLabelGlobal
+    global finalValGlobal
     ansValGlobal = ""
-    ansLabelGlobal = ""
+    finalValGlobal = ""
     Ans_val.set("")
     answerFinalLabel.set("")
 
 
 
 def createButton(txt,x,y):
-    Button(root, font=('futura', 15, 'bold'),
+    Button(gui, font=('futura', 15, 'bold'),
            padx=16,pady=16,text = str(txt),
            command = lambda:changeAns_val(txt),
            height = 2, width=9).grid(row = x , column = y, sticky=E)
@@ -97,29 +104,29 @@ for i in range(3,8):
         createButton(buttons[buttonsListTraversalCounter],i,j)
         buttonsListTraversalCounter =buttonsListTraversalCounter + 1
 
-Button(root,font=('futura', 15, 'bold'),
+Button(gui,font=('futura', 15, 'bold'),
        padx=16,pady=16, text = "√",
-       command = lambda:evaluateSquareRoot(),
+       command = lambda:evaluateSquaregui(),
        height=2, width=9).grid(row = 3 , column = 1, sticky = E)
 
 
 
-Button(root,font=('futura', 15, 'bold'),
+Button(gui,font=('futura', 15, 'bold'),
        padx=16,pady=16, text = "AC",
        command = lambda:allClear(),
        height=2, width=9).grid(row = 3 , column = 0 , sticky = E)
-       
 
-Button(root,font=('futura', 15, 'bold'),
+
+Button(gui,font=('futura', 15, 'bold'),
        padx=16,pady=16, text = "0",
        command = lambda:changeAns_val(0),
        height=2, width=21).grid(row = 7 , column = 0 ,
        columnspan=2 , sticky = E)
 
-Button(root,font=('futura', 15, 'bold'),
+Button(gui,font=('futura', 15, 'bold'),
        padx=16,pady=16, text = "=",
        command = lambda:evaluateAnswer(),
        height=2, width=9).grid(row = 7 , column = 3, sticky = E)
 
        
-root.mainloop()
+gui.mainloop()
