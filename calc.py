@@ -1,8 +1,9 @@
 from tkinter import *
 import math
 
-answerVariableGlobal = ""
-answerLabelForSquareRoot = ""
+
+ansValGlobal = ""
+ansLabelGlobal = ""
 
 root = Tk()
 
@@ -11,67 +12,69 @@ root.title('Calculator by Saif Khan')
 p1 = PhotoImage(file='shiats.png')
 root.iconphoto(False,p1)
 
-answerEntryLabel = StringVar()
+Ans_val = StringVar()
 
-Label(root, font=('futura', 25, 'bold'),
+Entry(root, font=('futura', 25, 'bold'),
+textvariable = Ans_val,
+justify = LEFT).grid(columnspan=4, ipadx=120)
 
-textvariable = answerEntryLabel,
-
-justify = LEFT, height=2, width=7).grid(columnspan=4, ipadx=120)
 answerFinalLabel = StringVar()
-Label(root, font=('futura', 25, 'bold'),
+
+Entry(root, font=('futura', 25, 'bold'),
 textvariable = answerFinalLabel,
-justify = LEFT, height=2, width=7).grid(columnspan = 4 , ipadx=120)
-def changeAnswerEntryLabel(entry):
-    global answerVariableGlobal
-    global answerLabelForSquareRoot
+justify = LEFT).grid(columnspan = 4 , ipadx=120)
+
+
+def changeAns_val(entry):
+    global ansValGlobal
+    global ansLabelGlobal
     
-    answerVariableGlobal = answerVariableGlobal + str(entry)
-    answerLabelForSquareRoot = answerVariableGlobal
-    answerEntryLabel.set(answerVariableGlobal)
-def clearAnswerEntryLabel():
-    global answerVariableGlobal
-    global answerLabelForSquareRoot
-    answerLabelForSquareRoot = answerVariableGlobal
-    answerVariableGlobal = ""
-    answerEntryLabel.set(answerVariableGlobal)
+    ansValGlobal = ansValGlobal + str(entry)
+    ansLabelGlobal = ansValGlobal
+    Ans_val.set(ansValGlobal)
+def clearAns_val():
+    global ansValGlobal
+    global ansLabelGlobal
+    ansLabelGlobal = ansValGlobal
+    ansValGlobal = ""
+    Ans_val.set(ansValGlobal)
 def evaluateSquareRoot():
-    global answerVariableGlobal
-    global answerLabelForSquareRoot
+    global ansValGlobal
+    global ansLabelGlobal
     try:
-        sqrtAnswer = math.sqrt(eval(str(answerLabelForSquareRoot)))
-        clearAnswerEntryLabel()
+        sqrtAnswer = math.sqrt(eval(str(ansLabelGlobal)))
+        clearAns_val()
         answerFinalLabel.set(sqrtAnswer)
     except(ValueError,SyntaxError,TypeError, ZeroDivisionError):
         try:
-            sqrtAnswer = math.sqrt(eval(str(answerVariableGlobal)))
-            clearAnswerEntryLabel()
+            sqrtAnswer = math.sqrt(eval(str(ansValGlobal)))
+            clearAns_val()
             answerFinalLabel.set(sqrtAnswer)
         except(ValueError,SyntaxError,TypeError,ZeroDivisionError):
-            clearAnswerEntryLabel()
+            clearAns_val()
             answerFinalLabel.set("Error!")
 def evaluateAnswer():
-    global answerVariableGlobal
+    global ansValGlobal
     try:
-       eval(answerVariableGlobal)
-       evaluatedValueAnswerLabelGlobal= str(eval(answerVariableGlobal))
+       eval(ansValGlobal)
+       evaluatedValueAnswerLabelGlobal= str(eval(ansValGlobal))
         # This line should be alligned properly without any indentation error
-       clearAnswerEntryLabel()
+       clearAns_val()
        answerFinalLabel.set(evaluatedValueAnswerLabelGlobal)
     except(ValueError,SyntaxError,TypeError, ZeroDivisionError):
-        clearAnswerEntryLabel()
+        clearAns_val()
         answerFinalLabel.set("Error!")
 def allClear():
-    global answerVariableGlobal
-    global answerLabelForSquareRoot
-    answerVariableGlobal = ""
-    answerLabelForSquareRoot = ""
-    answerEntryLabel.set("")
+    global ansValGlobal
+    global ansLabelGlobal
+    ansValGlobal = ""
+    ansLabelGlobal = ""
+    Ans_val.set("")
     answerFinalLabel.set("")
 def createButton(txt,x,y):
     Button(root, font=('futura', 15, 'bold'),
            padx=16,pady=16,text = str(txt),
-           command = lambda:changeAnswerEntryLabel(txt),
+           command = lambda:changeAns_val(txt),
            height = 2, width=9).grid(row = x , column = y, sticky=E)
 buttons = ['AC','√','%','/','7','8','9','*','4','5','6','-','1','2','3','+','','','.','']
 buttonsListTraversalCounter = 0
@@ -91,7 +94,7 @@ Button(root,font=('futura', 15, 'bold'),
 
 Button(root,font=('futura', 15, 'bold'),
        padx=16,pady=16, text = "0",
-       command = lambda:changeAnswerEntryLabel(0),
+       command = lambda:changeAns_val(0),
        height=2, width=21).grid(row = 7 , column = 0 ,
        columnspan=2 , sticky = E)
 
@@ -99,4 +102,6 @@ Button(root,font=('futura', 15, 'bold'),
        padx=16,pady=16, text = "=",
        command = lambda:evaluateAnswer(),
        height=2, width=9).grid(row = 7 , column = 3, sticky = E)
+
+       
 root.mainloop()
